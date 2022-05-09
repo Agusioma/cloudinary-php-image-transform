@@ -13,6 +13,7 @@ use Cloudinary\Tag\ImageTag;
 use Cloudinary\Transformation\Adjust;
 use Cloudinary\Transformation\Argument\Color;
 use Cloudinary\Transformation\Argument\Text\FontWeight;
+use Cloudinary\Transformation\AudioCodec;
 use Cloudinary\Transformation\Background;
 use Cloudinary\Transformation\Delivery;
 use Cloudinary\Transformation\Effect;
@@ -21,7 +22,9 @@ use Cloudinary\Transformation\Overlay;
 use Cloudinary\Transformation\Reshape;
 use Cloudinary\Transformation\Resize;
 use Cloudinary\Transformation\Source;
+use Cloudinary\Transformation\StreamingProfile;
 use Cloudinary\Transformation\TextStyle;
+use Cloudinary\Transformation\Transcode;
 use Cloudinary\Transformation\VideoEdit;
 
 //configuring Cloudinary SDK
@@ -206,7 +209,39 @@ function transcodeVideoFormat(){
     print($res);
 }
 
-transcodeVideoFormat();
+function videoUploadEagerTransfrom(){
+    $response = (new UploadApi())->upload('cat_2.mp4', [
+        "use_filename" => TRUE,
+        'resource_type' => 'video',
+        "eager" => ["streaming_profile" => "full_hd_wifi", "format" => "m3u8"],
+        "eager_async" => true,
+        "unique_filename" => FALSE]);
+}
+//videoUploadEagerTransfrom();
+
+function getModifiedBitrateVideo(){
+    $res = (new Video('cat_2.m3u8'))
+        ->transcode(Transcode::streamingProfile(
+            StreamingProfile::fullHdWifi()));
+    print($res);
+}
+
+//getModifiedBitrateVideo();
+
+function modifyAudioChannel(){
+    $res = (new Video('cat.mp4'))
+    ->transcode(Transcode::audioFrequency(32000))
+        ->transcode(Transcode::audioCodec(
+            AudioCodec::mp3()));
+    print($res);
+}
+
+//modifyAudioChannel();
+
+
+//transcodeVideoFormat();
+
+
 
 /*
  *
@@ -219,5 +254,11 @@ transcodeVideoFormat();
  6. Text_layer_options: https://cloudinary.com/documentation/layers#text_layer_options
  7. video_manipulation_and_delivery: https://cloudinary.com/documentation/video_manipulation_and_delivery#landingpage
  8. transcoding_videos_to_other_formats: https://cloudinary.com/documentation/video_manipulation_and_delivery#transcoding_videos_to_other_formats
+ 9. eager_transformations: https://cloudinary.com/documentation/transformations_on_upload#eager_transformations
+10. af_audio_frequency: https://cloudinary.com/documentation/transformation_reference#af_audio_frequency
+11. audio_transformations: https://cloudinary.com/documentation/audio_transformations
+12. adaptive_bitrate_streaming: https://cloudinary.com/documentation/adaptive_bitrate_streaming
+
+
 */
 ?>
