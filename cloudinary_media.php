@@ -181,7 +181,14 @@ function videoMuteAndDecelerateEffect(){
 
 //videoMuteAndDecelerateEffect();
 
+function trimOurVideo(){
+    $res = (new Video('cat.mp4'))
+        ->videoEdit(VideoEdit::trim()->startOffset(6.0)
+            ->endOffset(13.0));
+    print($res);
+}
 
+//trimOurVideo();
 
 /*
  *
@@ -192,5 +199,6 @@ function videoMuteAndDecelerateEffect(){
  4. image_manipulation: https://cloudinary.com/documentation/php_image_manipulation
  5. Custom fonts: https://cloudinary.com/documentation/layers#custom_fonts
  6. Text_layer_options: https://cloudinary.com/documentation/layers#text_layer_options
+ 7. video_manipulation_and_delivery: https://cloudinary.com/documentation/video_manipulation_and_delivery#landingpage
 */
 ?>
