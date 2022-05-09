@@ -4,6 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 //require Cloudinary\Cloudinary::class;
 use Cloudinary\Asset\Image;
+use Cloudinary\Asset\Video;
 use Cloudinary\Cloudinary;
 use Cloudinary\Configuration\Configuration;
 use Cloudinary\Api\Upload\UploadApi;
@@ -13,11 +14,13 @@ use Cloudinary\Transformation\Adjust;
 use Cloudinary\Transformation\Argument\Color;
 use Cloudinary\Transformation\Argument\Text\FontWeight;
 use Cloudinary\Transformation\Background;
+use Cloudinary\Transformation\Effect;
 use Cloudinary\Transformation\Overlay;
 use Cloudinary\Transformation\Reshape;
 use Cloudinary\Transformation\Resize;
 use Cloudinary\Transformation\Source;
 use Cloudinary\Transformation\TextStyle;
+use Cloudinary\Transformation\VideoEdit;
 
 //configuring Cloudinary SDK
 Configuration::instance([
@@ -102,7 +105,7 @@ function cropOurImageURLOnly()
 
 //cropOurImageURLOnly();
 
-function distortOurImage(){
+function transformOurImage(){
     $res = (new Image('nature'))
         ->reshape(Reshape::distort([20, 1650, 2000, 1705, 500, 0, 50, 0]))
         ->reshape(Reshape::shear(0.0, 35.0))
@@ -139,6 +142,46 @@ function addTextOverLay(){
 }
 
 //addTextOverLay();
+
+function videoUpload(){
+    $response = (new UploadApi())->upload('cat.mp4', [
+        "use_filename" => TRUE,
+        'resource_type' => 'video',
+        "unique_filename" => FALSE]);
+}
+
+//videoUpload();
+
+function videoBlurEffect(){
+    $res = (new Video('cat.mp4'))
+        ->effect(Effect::blur()->strength(250)
+        );
+    print($res);
+}
+
+//videoBlurEffect();
+
+function videoLoopEffect(){
+    $res = (new Video('cat.mp4'))
+        ->effect(Effect::loop()->additionalIterations(3)
+        );
+    print($res);
+}
+
+//videoLoopEffect();
+
+function videoMuteAndDecelerateEffect(){
+    //->videoEdit(VideoEdit::volume(50));
+    $res = (new Video('cat.mp4'))
+        ->effect(Effect::accelerate()->rate(-50))
+        ->videoEdit(VideoEdit::volume(-100)
+        );
+    print($res);
+}
+
+//videoMuteAndDecelerateEffect();
+
+
 
 /*
  *
