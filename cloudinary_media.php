@@ -9,8 +9,10 @@ use Cloudinary\Configuration\Configuration;
 use Cloudinary\Api\Upload\UploadApi;
 use Cloudinary\Api\Admin\AdminApi;
 use Cloudinary\Tag\ImageTag;
+use Cloudinary\Transformation\Adjust;
 use Cloudinary\Transformation\Argument\Color;
 use Cloudinary\Transformation\Background;
+use Cloudinary\Transformation\Reshape;
 use Cloudinary\Transformation\Resize;
 
 //configuring Cloudinary SDK
@@ -95,6 +97,19 @@ function cropOurImageURLOnly()
 }
 
 //cropOurImageURLOnly();
+
+function distortOurImage(){
+    $res = (new Image('nature'))
+        ->reshape(Reshape::distort([20, 1650, 2000, 1705, 500, 0, 50, 0]))
+        ->reshape(Reshape::shear(0.0, 35.0))
+        ->adjust(Adjust::sharpen()->strength(250)
+        );
+
+    print($res);
+}
+
+distortOurImage();
+
 
 /*
  *
