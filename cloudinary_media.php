@@ -3,6 +3,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 //require Cloudinary\Cloudinary::class;
+use Cloudinary\Asset\Image;
 use Cloudinary\Cloudinary;
 use Cloudinary\Configuration\Configuration;
 use Cloudinary\Api\Upload\UploadApi;
@@ -61,24 +62,19 @@ function resizeOurImageHTML()
 //resizeOurImageHTML();
 
 function resizeOurImageURLOnly(){
-    $cld = new Cloudinary([
-        'cloud' => [
-            'cloud_name' => 'agusioma',
-            'api_key'  => '957489173493642',
-            'api_secret' => 'ajh4dnXB0jjEk7-tnHd_pqNLZDY',
-            'url' => [
-                'secure' => true]]]);
-    $res = $cld->image('nature')
+    $res = (new Image("nature"))
         ->resize(Resize::pad()
-        ->height(1280)
-        ->width(852)
-        ->background(Background::color(Color::RED)))
-        ->toUrl();
-    print($res);
+            ->height(1280)
+            ->width(852)
+            ->background(Background::color(Color::RED))
+        );
 
+    print($res);
 }
 
 resizeOurImageURLOnly()
+
+
 
 /*
  *
