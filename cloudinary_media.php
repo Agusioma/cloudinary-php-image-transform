@@ -14,7 +14,9 @@ use Cloudinary\Transformation\Adjust;
 use Cloudinary\Transformation\Argument\Color;
 use Cloudinary\Transformation\Argument\Text\FontWeight;
 use Cloudinary\Transformation\Background;
+use Cloudinary\Transformation\Delivery;
 use Cloudinary\Transformation\Effect;
+use Cloudinary\Transformation\Format;
 use Cloudinary\Transformation\Overlay;
 use Cloudinary\Transformation\Reshape;
 use Cloudinary\Transformation\Resize;
@@ -190,6 +192,22 @@ function trimOurVideo(){
 
 //trimOurVideo();
 
+function transcodeVideoFormat(){
+    /*
+     * (new VideoTag('dog.mp4'))
+  ->delivery(Delivery::format(
+  Format::videoWebm()));
+     */
+    $res = (new Video('cat.mp4'))
+        ->delivery(Delivery::format(
+            Format::videoMkv())
+        );
+
+    print($res);
+}
+
+transcodeVideoFormat();
+
 /*
  *
  * Links needed
@@ -200,5 +218,6 @@ function trimOurVideo(){
  5. Custom fonts: https://cloudinary.com/documentation/layers#custom_fonts
  6. Text_layer_options: https://cloudinary.com/documentation/layers#text_layer_options
  7. video_manipulation_and_delivery: https://cloudinary.com/documentation/video_manipulation_and_delivery#landingpage
+ 8. transcoding_videos_to_other_formats: https://cloudinary.com/documentation/video_manipulation_and_delivery#transcoding_videos_to_other_formats
 */
 ?>
