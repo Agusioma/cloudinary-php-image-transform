@@ -44,13 +44,8 @@ function getAssetDetails()
 
 function resizeOurImageHTML()
 {
-   /* $cld = new Cloudinary();
-    $res = $cld->imageTag('nature_in_cloud')->resize(Resize::pad()
-            ->height(1280)
-            ->width(852)
-            ->background(Background::color(Color::BLACK)));*/
     $res = (new ImageTag("nature"))
-            ->resize(Resize::pad()
+        ->resize(Resize::pad()
             ->height(1280)
             ->width(852)
             ->background(Background::color(Color::RED))
@@ -61,7 +56,8 @@ function resizeOurImageHTML()
 
 //resizeOurImageHTML();
 
-function resizeOurImageURLOnly(){
+function resizeOurImageURLOnly()
+{
     $res = (new Image("nature"))
         ->resize(Resize::pad()
             ->height(1280)
@@ -72,9 +68,33 @@ function resizeOurImageURLOnly(){
     print($res);
 }
 
-resizeOurImageURLOnly()
+//resizeOurImageURLOnly()
 
+function cropOurImageHTML()
+{
+    $res = (new ImageTag("nature"))
+        ->resize(Resize::crop()
+            ->width(400)
+            ->height(400)
+        );
 
+    print($res);
+}
+
+//cropOurImageHTML();
+
+function cropOurImageURLOnly()
+{
+    $res = (new Image("nature"))
+        ->resize(Resize::crop()
+            ->width(400)
+            ->height(400)
+        );
+
+    print($res);
+}
+
+//cropOurImageURLOnly();
 
 /*
  *
@@ -82,5 +102,6 @@ resizeOurImageURLOnly()
  1. IMAGE UPLOAD: https://cloudinary.com/documentation/upload_images
  2. get_the_details_of_a_single_resource: https://cloudinary.com/documentation/admin_api#get_the_details_of_a_single_resource
  3. transformation_reference: https://cloudinary.com/documentation/transformation_reference
+ 4. image_manipulation: https://cloudinary.com/documentation/php_image_manipulation
 */
 ?>
