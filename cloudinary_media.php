@@ -137,7 +137,8 @@ function addTextOverLay(){
 
     print($res);
 }
-addTextOverLay();
+
+//addTextOverLay();
 
 /*
  *
