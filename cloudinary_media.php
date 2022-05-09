@@ -11,9 +11,13 @@ use Cloudinary\Api\Admin\AdminApi;
 use Cloudinary\Tag\ImageTag;
 use Cloudinary\Transformation\Adjust;
 use Cloudinary\Transformation\Argument\Color;
+use Cloudinary\Transformation\Argument\Text\FontWeight;
 use Cloudinary\Transformation\Background;
+use Cloudinary\Transformation\Overlay;
 use Cloudinary\Transformation\Reshape;
 use Cloudinary\Transformation\Resize;
+use Cloudinary\Transformation\Source;
+use Cloudinary\Transformation\TextStyle;
 
 //configuring Cloudinary SDK
 Configuration::instance([
@@ -108,8 +112,32 @@ function distortOurImage(){
     print($res);
 }
 
-distortOurImage();
+//distortOurImage();
 
+function addTextOverLay(){
+    $res = (new Image('nature'))
+        ->overlay(Overlay::source(
+            Source::text('I am Nature', (new TextStyle('Verdana', 100))
+                ->fontWeight(FontWeight::bold()))
+                ->textColor(Color::WHITESMOKE)
+        ));
+
+
+   /* ->overlay(
+        Overlay::source(
+            Source::text('Love', (new TextStyle('Cookie', 40))
+                ->fontWeight(FontWeight::bold()))
+                ->textColor(Color::rgb('F08'))
+                ->transformation((new ImageTransformation())
+                    ->rotate(Rotate::byAngle(20))))
+            ->position((new Position())
+                ->offsetX(-45)->offsetY(44)))
+        ->resize(Resize::crop()->width(300)->height(250)->x(30))
+        ->roundCorners(RoundCorners::byRadius(60));*/
+
+    print($res);
+}
+addTextOverLay();
 
 /*
  *
@@ -118,5 +146,7 @@ distortOurImage();
  2. get_the_details_of_a_single_resource: https://cloudinary.com/documentation/admin_api#get_the_details_of_a_single_resource
  3. transformation_reference: https://cloudinary.com/documentation/transformation_reference
  4. image_manipulation: https://cloudinary.com/documentation/php_image_manipulation
+ 5. Custom fonts: https://cloudinary.com/documentation/layers#custom_fonts
+ 6. Text_layer_options: https://cloudinary.com/documentation/layers#text_layer_options
 */
 ?>
