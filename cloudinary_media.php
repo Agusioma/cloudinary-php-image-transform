@@ -213,7 +213,7 @@ function videoUploadEagerTransfrom(){
     $response = (new UploadApi())->upload('cat_2.mp4', [
         "use_filename" => TRUE,
         'resource_type' => 'video',
-        "eager" => ["streaming_profile" => "full_hd_wifi", "format" => "m3u8"],
+        "eager" => ["streaming_profile" => "full_hd_wifi"],
         "eager_async" => true,
         "unique_filename" => FALSE]);
 }
@@ -236,7 +236,7 @@ function modifyAudioChannel(){
     print($res);
 }
 
-//modifyAudioChannel();
+modifyAudioChannel();
 
 
 //transcodeVideoFormat();
