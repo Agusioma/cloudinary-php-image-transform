@@ -1,11 +1,8 @@
 <?php
-//namespace Cloudinary;
 require_once __DIR__ . '/vendor/autoload.php';
 
-//require Cloudinary\Cloudinary::class;
 use Cloudinary\Asset\Image;
 use Cloudinary\Asset\Video;
-use Cloudinary\Cloudinary;
 use Cloudinary\Configuration\Configuration;
 use Cloudinary\Api\Upload\UploadApi;
 use Cloudinary\Api\Admin\AdminApi;
@@ -39,7 +36,9 @@ Configuration::instance([
 //image upload
 function uploadOurImage()
 {
-    //$response = (new UploadApi())->upload("nature.jpg", ["public_id" => "nature_in_cloud"]);
+    /*
+     * upload and use the filename as the public id
+     */
     $response = (new UploadApi())->upload("nature.jpg", [
         "use_filename" => TRUE,
         "unique_filename" => FALSE]);
@@ -56,6 +55,9 @@ function getAssetDetails()
 
 //getAssetDetails();
 
+/*
+ * getting the HTML <img> tag
+ */
 function resizeOurImageHTML()
 {
     $res = (new ImageTag("nature"))
@@ -70,8 +72,10 @@ function resizeOurImageHTML()
 
 //resizeOurImageHTML();
 
-function resizeOurImageURLOnly()
-{
+/*
+ * getting the URL of the image
+ */
+function resizeOurImageURLOnly(){
     $res = (new Image("nature"))
         ->resize(Resize::pad()
             ->height(1280)
@@ -110,6 +114,9 @@ function cropOurImageURLOnly()
 
 //cropOurImageURLOnly();
 
+/*
+ * distort, shear, and then sharpen the image
+ */
 function transformOurImage(){
     $res = (new Image('nature'))
         ->reshape(Reshape::distort([20, 1650, 2000, 1705, 500, 0, 50, 0]))
@@ -151,7 +158,7 @@ function addTextOverLay(){
 function videoUpload(){
     $response = (new UploadApi())->upload('cat.mp4', [
         "use_filename" => TRUE,
-        'resource_type' => 'video',
+        'resource_type' => 'video',/* 'tells' the SDK that this is a video resource */
         "unique_filename" => FALSE]);
 }
 
@@ -196,11 +203,6 @@ function trimOurVideo(){
 //trimOurVideo();
 
 function transcodeVideoFormat(){
-    /*
-     * (new VideoTag('dog.mp4'))
-  ->delivery(Delivery::format(
-  Format::videoWebm()));
-     */
     $res = (new Video('cat.mp4'))
         ->delivery(Delivery::format(
             Format::videoMkv())
@@ -213,10 +215,11 @@ function videoUploadEagerTransfrom(){
     $response = (new UploadApi())->upload('cat_2.mp4', [
         "use_filename" => TRUE,
         'resource_type' => 'video',
-        "eager" => ["streaming_profile" => "full_hd_wifi"],
+        "eager" => ["streaming_profile" => "full_hd_wifi", "format" => "m3u8"],
         "eager_async" => true,
         "unique_filename" => FALSE]);
 }
+
 //videoUploadEagerTransfrom();
 
 function getModifiedBitrateVideo(){
@@ -228,7 +231,7 @@ function getModifiedBitrateVideo(){
 
 //getModifiedBitrateVideo();
 
-function modifyAudioType(){
+function modifyVideoAudio(){
     $res = (new Video('cat.mp4'))
     ->transcode(Transcode::audioFrequency(32000))
         ->transcode(Transcode::audioCodec(
@@ -236,7 +239,7 @@ function modifyAudioType(){
     print($res);
 }
 
-//modifyAudioType();
+//modifyVideoAudio();
 
 
 //transcodeVideoFormat();
