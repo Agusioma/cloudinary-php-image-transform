@@ -228,7 +228,7 @@ function getModifiedBitrateVideo(){
 
 //getModifiedBitrateVideo();
 
-function modifyAudioChannel(){
+function modifyAudioType(){
     $res = (new Video('cat.mp4'))
     ->transcode(Transcode::audioFrequency(32000))
         ->transcode(Transcode::audioCodec(
@@ -236,7 +236,7 @@ function modifyAudioChannel(){
     print($res);
 }
 
-modifyAudioChannel();
+//modifyAudioType();
 
 
 //transcodeVideoFormat();
