@@ -27,9 +27,9 @@ use Cloudinary\Transformation\VideoEdit;
 //configuring Cloudinary SDK
 Configuration::instance([
     'cloud' => [
-        'cloud_name' => 'agusioma',
-        'api_key' => '957489173493642',
-        'api_secret' => 'ajh4dnXB0jjEk7-tnHd_pqNLZDY'],
+        'cloud_name' => '',
+        'api_key' => '',
+        'api_secret' => ''],
     'url' => [
         'secure' => true]]);
 
@@ -86,7 +86,7 @@ function resizeOurImageURLOnly(){
     print($res);
 }
 
-//resizeOurImageURLOnly()
+//resizeOurImageURLOnly();
 
 function cropOurImageHTML()
 {
@@ -127,7 +127,7 @@ function transformOurImage(){
     print($res);
 }
 
-//distortOurImage();
+//transformOurImage();
 
 function addTextOverLay(){
     $res = (new Image('nature'))
@@ -136,19 +136,6 @@ function addTextOverLay(){
                 ->fontWeight(FontWeight::bold()))
                 ->textColor(Color::WHITESMOKE)
         ));
-
-
-   /* ->overlay(
-        Overlay::source(
-            Source::text('Love', (new TextStyle('Cookie', 40))
-                ->fontWeight(FontWeight::bold()))
-                ->textColor(Color::rgb('F08'))
-                ->transformation((new ImageTransformation())
-                    ->rotate(Rotate::byAngle(20))))
-            ->position((new Position())
-                ->offsetX(-45)->offsetY(44)))
-        ->resize(Resize::crop()->width(300)->height(250)->x(30))
-        ->roundCorners(RoundCorners::byRadius(60));*/
 
     print($res);
 }
@@ -160,6 +147,7 @@ function videoUpload(){
         "use_filename" => TRUE,
         'resource_type' => 'video',/* 'tells' the SDK that this is a video resource */
         "unique_filename" => FALSE]);
+    print_r($response);
 }
 
 //videoUpload();
@@ -183,7 +171,6 @@ function videoLoopEffect(){
 //videoLoopEffect();
 
 function videoMuteAndDecelerateEffect(){
-    //->videoEdit(VideoEdit::volume(50));
     $res = (new Video('cat.mp4'))
         ->effect(Effect::accelerate()->rate(-50))
         ->videoEdit(VideoEdit::volume(-100)
@@ -210,6 +197,8 @@ function transcodeVideoFormat(){
 
     print($res);
 }
+
+//transcodeVideoFormat();
 
 function videoUploadEagerTransfrom(){
     $response = (new UploadApi())->upload('cat_2.mp4', [
@@ -242,7 +231,6 @@ function modifyVideoAudio(){
 //modifyVideoAudio();
 
 
-//transcodeVideoFormat();
 
 
 
